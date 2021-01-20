@@ -7,8 +7,8 @@ variable "org_name" {
   description = "The name of the cf organisation to create the promregator instance in"
   type        = string
 }
-variable "space_name" {
-  description = "The name of the cf space to create the promregator instance in"
+variable "space_id" {
+  description = "The id of the cf space to create the promregator instance in"
   type        = string
 }
 variable "promregator_docker_image" {
@@ -61,5 +61,6 @@ variable "network_policies" {
 }
 variable "environment" {
   description = "Environment variables to be passed to the promregator instance. These will be merged with and overwrite the vars set in this module."
+  type        = map(any)
   default     = {}
 }

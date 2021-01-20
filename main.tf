@@ -2,11 +2,6 @@ data "cloudfoundry_org" "org" {
   name = var.org_name
 }
 
-data "cloudfoundry_space" "space" {
-  org  = data.cloudfoundry_org.org.name
-  name = var.space_name
-}
-
 data "cloudfoundry_domain" "domain" {
   name = var.domain
 }
@@ -21,13 +16,13 @@ locals {
 
 resource "cloudfoundry_route" "promregator" {
   domain   = data.cloudfoundry_domain.domain.id
-  space    = data.cloudfoundry_space.space.id
+  space    = var.space_id
   hostname = "promregator-${local.postfix_name}"
 }
 
 resource "cloudfoundry_app" "promregator" {
   name         = "promregator-${local.postfix_name}"
-  space        = data.cloudfoundry_space.space.id
+  space        = var.space_id
   memory       = 1024
   disk_quota   = 1024
   docker_image = var.promregator_docker_image

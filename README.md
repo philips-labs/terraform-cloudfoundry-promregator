@@ -32,14 +32,14 @@ This module does not configure any internal network policies required to allow p
 | docker\_password | The docker password used to pull the promregator\_docker\_image | `string` | `""` | no |
 | docker\_username | The docker username used to pull the promregator\_docker\_image | `string` | `""` | no |
 | domain | The cf domain that will be used for the route on the promregator app | `string` | `"apps.internal"` | no |
-| environment | Environment variables to be passed to the promregator instance. These will be merged with and overwrite the vars set in this module. | `map` | `{}` | no |
+| environment | Environment variables to be passed to the promregator instance. These will be merged with and overwrite the vars set in this module. | `map(any)` | `{}` | no |
 | metrics\_orgname | The cf org name that we want to get metrics from | `string` | n/a | yes |
 | metrics\_spacename | The cf spacename that we want to get the metrics from | `string` | n/a | yes |
 | name\_postfix | The postfix string to append to the space, hostname, etc. Prevents namespace clashes | `string` | `""` | no |
 | network\_policies | The container-to-container network policies to create with Promregator as the source app | <pre>list(object({<br>    destination_app = string<br>    protocol        = string<br>    port            = string<br>  }))</pre> | `[]` | no |
 | org\_name | The name of the cf organisation to create the promregator instance in | `string` | n/a | yes |
 | promregator\_docker\_image | The docker image to use for promregator | `string` | `"promregator/promregator:0.8.5"` | no |
-| space\_name | The name of the cf space to create the promregator instance in | `string` | n/a | yes |
+| space\_id | The id of the cf space to create the promregator instance in | `string` | n/a | yes |
 
 ## Outputs
 
