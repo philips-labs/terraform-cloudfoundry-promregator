@@ -11,7 +11,10 @@ resource "random_id" "id" {
 }
 
 locals {
-  postfix_name = var.name_postfix != "" ? var.name_postfix : random_id.id.hex
+  postfix_name = var.name_postfix != "" ? var.name_postfix : random_id.id.hex  
+    promregator_targets = merge([for k, v in var.promregator_targets :
+    { for a, b in v : "PROMREGATOR_TARGETS_${k}_${upper(a)}" => b }
+  ]...)
 }
 
 resource "cloudfoundry_route" "promregator" {
@@ -30,11 +33,7 @@ resource "cloudfoundry_app" "promregator" {
     username = var.docker_username
     password = var.docker_password
   }
-  environment = merge({
-    PROMREGATOR_TARGETS_0_ORGNAME             = var.metrics_orgname
-    PROMREGATOR_TARGETS_0_SPACENAME           = var.metrics_spacename
-    PROMREGATOR_TARGETS_0_PROTOCOL            = "http"
-    PROMREGATOR_TARGETS_0_PREFERREDROUTEREGEX = ".*.apps.internal"
+  environment = merge(local.promregator_targets, {
     CF_API_HOST                               = var.cf_api_host
     CF_USERNAME                               = var.cf_username
     CF_PASSWORD                               = var.cf_password

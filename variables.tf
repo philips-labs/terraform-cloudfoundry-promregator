@@ -16,14 +16,6 @@ variable "promregator_docker_image" {
   default     = "promregator/promregator:0.8.5"
   type        = string
 }
-variable "metrics_orgname" {
-  description = "The cf org name that we want to get metrics from"
-  type        = string
-}
-variable "metrics_spacename" {
-  description = "The cf spacename that we want to get the metrics from"
-  type        = string
-}
 variable "cf_api_host" {
   description = "The cf api host to use for discovery of the apps in the metrics org and space"
   type        = string
@@ -63,4 +55,8 @@ variable "environment" {
   description = "Environment variables to be passed to the promregator instance. These will be merged with and overwrite the vars set in this module."
   type        = map(any)
   default     = {}
+}
+variable "promregator_targets" {
+  description = "A list of objects representing the properties of the target to be configured. These are the config values from propergator targets"
+  type = list(object({}))  
 }
