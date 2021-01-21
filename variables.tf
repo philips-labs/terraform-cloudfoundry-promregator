@@ -57,6 +57,6 @@ variable "environment" {
   default     = {}
 }
 variable "promregator_targets" {
-  description = "A list of objects representing the properties of the target to be configured. These are the config values from propergator targets"
-  type = list(object({}))  
+  description = "A list of maps representing the properties of the target to be configured. These are the config values from propergator targets"
+  type        = list(map(any))    
 }
