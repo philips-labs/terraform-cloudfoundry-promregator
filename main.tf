@@ -34,9 +34,10 @@ resource "cloudfoundry_app" "promregator" {
     password = var.docker_password
   }
   environment = merge(local.targets, {
-    CF_API_HOST = var.cf_api_host
-    CF_USERNAME = var.cf_username
-    CF_PASSWORD = var.cf_password
+    CF_API_HOST                    = var.cf_api_host
+    CF_USERNAME                    = var.cf_username
+    CF_PASSWORD                    = var.cf_password
+    PROMREGATOR_DISCOVERY_HOSTNAME = cloudfoundry_route.promregator.endpoint
   }, var.environment)
 
   routes {
