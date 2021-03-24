@@ -26,9 +26,11 @@ resource "cloudfoundry_route" "promregator" {
 resource "cloudfoundry_app" "promregator" {
   name         = "promregator-${local.postfix_name}"
   space        = var.space_id
-  memory       = 1024
-  disk_quota   = 1024
+  memory       = var.memory
+  disk_quota   = var.disk_quota
+  instances    = var.instances
   docker_image = var.promregator_docker_image
+
   docker_credentials = {
     username = var.docker_username
     password = var.docker_password
