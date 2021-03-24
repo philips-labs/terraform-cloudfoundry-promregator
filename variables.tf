@@ -60,3 +60,21 @@ variable "promregator_targets" {
   description = "A list of maps representing the properties of the target to be configured. These are the config values from propergator targets"
   type        = list(map(any))
 }
+
+variable "memory" {
+  type        = number
+  description = "The amount of memory that should be allocated to the app by CloudFoundry"
+  default     = 512
+}
+
+variable "disk_quota" {
+  type        = number
+  description = "The amount of disk space that should be allocated to the promregator app by CloudFoundry"
+  default     = 1024
+}
+
+variable "instances" {
+  type        = number
+  description = "The number of instances of the promregator app to be run"
+  default     = 1
+}
